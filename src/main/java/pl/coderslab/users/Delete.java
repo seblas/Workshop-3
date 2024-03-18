@@ -20,7 +20,6 @@ public class Delete extends HttpServlet {
             userDao.delete(id);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {
             e.printStackTrace();
-
         }
         finally {
             response.sendRedirect("/user/list");

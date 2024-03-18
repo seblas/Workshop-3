@@ -117,28 +117,27 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Dodaj użytkownika - <span style="color:red">dodać sprawdzanie czy użytkownik jest w bazie</span></h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Edytuj użytkownika</h6>
                         </div>
                         <div class="card-body">
 
-                            Mogę jeszcze zrobić tak, że servlet odbiera dane i jeżeli taki adres mailowy już istnieje to wraca do dodawania użytkownika ale z wypełnionym formularzem (oprócz haseł).
-
                                             <form method="post" id="myForm" class="user">
                                                 Nazwa<br>
-                                                <input type="text" name="username" required><br>
+                                                <input type="text" name="username" value="${user.userName}" required><br>
                                                 Email<br>
-                                                <input type="text" name="email" id="email" required>
+                                                <input type="text" name="email" id="email" value="${user.email}"required>
                                                 <span id="emailError" style="color: red;"></span> <!-- Komunikat o błędzie -->
                                                 <br>
                                                 Hasło<br>
-                                                <input type="password" name="password" id="password1" required>
+                                                <input type="password" name="password" id="password1" value="hasło użytkownika" required>
                                                 <span style=" cursor: pointer; color: dodgerblue; text-decoration: underline" onclick="togglePasswordVisibility()">Pokaż hasła</span> <!-- to dodałem -->
                                                 <br>
                                                 Powtórz hasło<br>
                                                 <input type="password" name="password2" id="password2" required>
                                                 <span id="passwordError" style="color: red;"></span><br> <!-- Komunikat o błędzie -->
-                                                <br><br>
+                                                <br>
                                                 <input type="button" value="Zapisz" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="checkPasswordsAndEmail()">
+                                                <input type="hidden" name="id" value="${user.id}">
                                             </form>
 
 
