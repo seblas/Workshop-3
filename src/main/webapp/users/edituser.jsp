@@ -120,6 +120,9 @@
                             <h6 class="m-0 font-weight-bold text-primary">Edytuj użytkownika</h6>
                         </div>
                         <div class="card-body">
+                            <c:if test="${not empty email}">
+                                <span style="color:red">Istnieje już użytkownik o adresie mailowym <b>${email}</b>. Podaj inny adres mailowy albo zostaw obecny. </span>
+                            </c:if>
 
                                             <form method="post" id="myForm" class="user">
                                                 Nazwa<br>
