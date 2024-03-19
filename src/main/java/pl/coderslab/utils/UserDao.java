@@ -12,6 +12,8 @@ public class UserDao {
     private static final String DELETE_USER_QUERY = "DELETE FROM users WHERE id=?";
     private static final String FIND_ALL_USER_QUERY = "SELECT id, username, email, password FROM users";
 
+    private static final String FIND_USERMAIL_QUERY = "SELECT username, email, password FROM users WHERE email=?";
+
     public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
@@ -103,6 +105,23 @@ public class UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public User read(String email) {
+        try (Connection connection = DbUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(FIND_USERMAIL_QUERY);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                return new User(resultSet.getString("username"),
+                        resultSet.getString("email"), resultSet.getString("password"));
+            }
+            else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

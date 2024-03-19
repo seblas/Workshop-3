@@ -17,14 +17,21 @@ public class Add extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         if(userName!=null && email!=null && password!=null) {
-            User user = new User(userName, email, password);
-        //    user.setUserName("Sebastian");
-        //    user.setEmail("seblas17@tlen.pl");
-        //    user.setPassword("hasło");
             UserDao userDao = new UserDao();
-            user = userDao.create(user);
+            User isUser = userDao.read(email); // sprawdzam czy użytkownik z takim mailem już istnieje
+            if(isUser==null) {
+                User user = new User(userName, email, password);
+                user = userDao.create(user);
+                response.sendRedirect("/user/list");
+            }
+            else {
+                request.setAttribute("email", email);
+                request.setAttribute("username", userName);
+                getServletContext().getRequestDispatcher("/users/adduser.jsp")
+                        .forward(request, response);
+            }
         }
-        response.sendRedirect("/user/list");
+
     }
 
     @Override

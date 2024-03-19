@@ -117,15 +117,21 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Dodaj użytkownika - <span style="color:red">dodać sprawdzanie czy użytkownik jest w bazie</span></h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Dodaj użytkownika</h6>
                         </div>
                         <div class="card-body">
-
-                            Mogę jeszcze zrobić tak, że servlet odbiera dane i jeżeli taki adres mailowy już istnieje to wraca do dodawania użytkownika ale z wypełnionym formularzem (oprócz haseł).
+                            <c:if test="${not empty email}">
+                                <span style="color:red">Istnieje już użytkownik o adresie mailowym <b>${email}</b>. Podaj inny adres mailowy.</span>
+                            </c:if>
 
                                             <form method="post" id="myForm" class="user">
                                                 Nazwa<br>
-                                                <input type="text" name="username" required><br>
+                                                <input type="text" name="username"
+                                                <c:if test="${not empty email}">
+                                                     value="${username}"
+                                                </c:if>
+
+                                                       required><br>
                                                 Email<br>
                                                 <input type="text" name="email" id="email" required>
                                                 <span id="emailError" style="color: red;"></span> <!-- Komunikat o błędzie -->
