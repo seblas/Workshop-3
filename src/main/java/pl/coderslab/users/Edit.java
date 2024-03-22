@@ -19,7 +19,7 @@ public class Edit extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         UserDao userDao = new UserDao();
         User isUser = userDao.read(email); // sprawdzam czy użytkownik z takim mailem już istnieje
-        if(isUser==null) {
+        if(isUser==null || email.equals(isUser.getEmail())) {
             try {
                 User user = new User(id, userName, email, password);
                 userDao.update(user);

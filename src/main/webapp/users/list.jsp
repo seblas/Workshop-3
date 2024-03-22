@@ -24,6 +24,23 @@
     <!-- Custom styles for this template-->
     <link href="<c:url value="/theme/css/sb-admin-2.css"/>" rel="stylesheet">
 
+    <script>
+        function confirmNavigation(event, id) {
+            // Zatrzymaj domyślne zachowanie przeglądarki (czyli przejście do adresu w linku)
+            event.preventDefault();
+
+            // Wyświetl okno dialogowe z pytaniem
+            var confirmation = confirm("Na pewno chcesz usunąć użytkownika o id=" + id + "?");
+
+            // Jeśli użytkownik kliknął OK, przekieruj go do adresu w linku
+            if (confirmation) {
+                window.location = event.target.href;
+            } else {
+                // Jeśli użytkownik kliknął Anuluj, nic nie rób
+                return false;
+            }
+        }
+    </script>
 
 </head>
 
@@ -139,7 +156,7 @@
                                             <td>${user.userName}</td>
                                             <td>${user.email}</td>
                                             <td>
-                                            <a href="/user/delete/${user.id}">Usuń</a>&nbsp;
+                                            <a href="/user/delete/${user.id}" onclick="return confirmNavigation(event, ${user.id});">Usuń</a>&nbsp;
                                             <a href="/user/edit/${user.id}">Edytuj</a>&nbsp;
                                             <a href="/user/show/${user.id}">Pokaż</a>
                                             </td>
